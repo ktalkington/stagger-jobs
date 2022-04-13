@@ -1,8 +1,10 @@
 require('dotenv').config()
 
 const config = {
-    debug: true,
-    executionRunMax: 20,
+    debug: false,
+    maxExecutionRun: 20,
+    jobsPerSet: 5,
+    intervalInMinutes: 5,
     apiUser: process.env.API_USER,
     apiPass: process.env.API_PASS,
 

@@ -111,7 +111,7 @@ let authBody = {
     let token = response.data.userLogin.token;
     const jobs = [];
     
-    _.times(5, () => jobs.push(sendQuery(token)));
+    _.times(config.jobsPerSet, () => jobs.push(sendQuery(token)));
     let results = await Promise.all(jobs).then(result => { if (config.debug) console.log(result) });
     const staggerJobs = setInterval(async () => {
         let response = await axios.post(gqlURL, authBody)
@@ -119,9 +119,9 @@ let authBody = {
                 return res.data;
             });
         let token = response.data.userLogin.token;
-        _.times(5, () => jobs.push(sendQuery(token)));
+        _.times(config.jobsPerSet, () => jobs.push(sendQuery(token)));
         results = await Promise.all(jobs).then(result => { if (config.debug) console.log(result) });
-        if (jobs.length >= config.executionRunMax) clearInterval(staggerJobs);
-    }, 1000 * 60 * 5);
+        if (jobs.length >= config.maxExecutionRun) clearInterval(staggerJobs);
+    }, 1000 * 60 * config.intervalInMinutes);
 })();
 
