@@ -67,7 +67,7 @@ const sendQuery = async (token) => {
         "url": config.url,
         "lang": "pt-PT",
         "webhook": config.webhook,
-        "debug": true,
+        "debug": config.debug,
         "clusterId": config.clusterId
     };
     let body = JSON.stringify({
